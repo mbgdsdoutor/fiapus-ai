@@ -4,8 +4,8 @@ import { NewReportPage, ReportListPage } from '@/modules/report/pages';
 
 export const reportRoutesPaths = {
   root: '/',
-  list: '/laudos',
-  detail: (reportId = ':id') => `/laudos/${reportId}`,
+  list: '/diagramas',
+  detail: (reportId = ':id') => `/diagramas/${reportId}`,
 };
 
 export const reportRoutes: RouteObject[] = [

@@ -7,7 +7,6 @@ import StatisticsIcon from '@/assets/statistics-icon.svg';
 import SupportIcon from '@/assets/support-icon.svg';
 import { PlusIcon } from '@/components/icons';
 import { reportRoutesPaths } from '@/modules/report/report-routes';
-import { statisticsRoutesPaths } from '@/modules/statistics/statistics-routes';
 
 export function AppMenu() {
   return (
@@ -29,7 +28,7 @@ export function AppMenu() {
           to={reportRoutesPaths.root}
           leftSection={<PlusIcon color="#ed145b" />}
         >
-          Novo laudo
+          Novo diagrama
         </Menu.Item>
         <Menu.Item
           component={NavLink}
@@ -37,21 +36,21 @@ export function AppMenu() {
           leftSection={
             <Image
               src={ReportIcon}
-              alt="icone de acompanhar laudos"
+              alt="icone de acompanhar diagrama"
               w={16}
               h={16}
             />
           }
         >
-          Acompanhe seus laudos
+          Acompanhe seus diagramas
         </Menu.Item>
         <Menu.Item
           component={NavLink}
-          to={statisticsRoutesPaths.root}
+          to={reportRoutesPaths.list}
           leftSection={
             <Image
               src={StatisticsIcon}
-              alt="icone de relatórios"
+              alt="icone de diagramas"
               w={16}
               h={16}
             />

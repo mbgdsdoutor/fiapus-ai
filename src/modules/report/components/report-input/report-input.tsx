@@ -1,4 +1,4 @@
-import { Button, Card, Flex, LoadingOverlay, Text } from '@mantine/core';
+import { Button, Card, Flex, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useState } from 'react';
 
@@ -29,6 +29,7 @@ export function ReportInput() {
 
   const isReadyToSend = !!uploadedFile;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const analyzeDiagram = async (imageFile: File, diagramType: DiagramType) => {
     const imageBase64 = await fileToBase64(imageFile);
 
@@ -133,11 +134,6 @@ Tarefas:
 
   return (
     <ColorfulAnimatedBorder radius="lg" withBoxShadow={false} animated>
-      <LoadingOverlay
-        visible={isSending}
-        zIndex={1000}
-        overlayProps={{ radius: 'lg', blur: 2 }}
-      />
       <Flex className={classes.reportInputContainer} direction="column">
         <Card bg="secondaryLight" p="xs" w="100%" radius="lg">
           <Flex justify="space-between">

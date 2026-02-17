@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Card, Flex, Text } from '@mantine/core';
+import { ActionIcon, Card, Flex, Text } from '@mantine/core';
 
 import { extractExtensionFromMime } from '@/common/utils/file.utils';
 import { CloseIcon } from '@/components/icons';
@@ -26,15 +26,10 @@ export function ReportInputFileList({
       >
         <Flex align="center" justify="space-between">
           <Text fw={700} fz="sm">
-            {diagramType}
+            {uploadedFile.name}
           </Text>
 
           <Flex gap="xs" align="center">
-            <Box maw={300}>
-              <Text fz="sm" truncate="end">
-                {uploadedFile.name}
-              </Text>
-            </Box>
             <Flex className={classes.fileCardMimeType} mr="xs">
               {extractExtensionFromMime(uploadedFile.type)}
             </Flex>

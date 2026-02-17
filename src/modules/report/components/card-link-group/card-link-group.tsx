@@ -3,7 +3,6 @@ import { Box, Flex } from '@mantine/core';
 import { ContactIcon } from '@/components/icons/contact-icon';
 import { StatisticsIcon } from '@/components/icons/statistics-icon';
 import { SupportIcon } from '@/components/icons/support-icon';
-import { statisticsRoutesPaths } from '@/modules/statistics/statistics-routes';
 
 import { CardLink } from '../card-link';
 
@@ -15,7 +14,7 @@ export default function CardLinkGroup() {
           title="Acompanhe seus diagramas"
           description="Consulte e analise os relatórios dos seus diagramas."
           icon={<StatisticsIcon />}
-          link={statisticsRoutesPaths.root}
+          link=""
         />
       </Flex>
       <Flex justify="center" gap="sm" mb="sm">
