@@ -1,0 +1,11 @@
+.loginSpeechBubble {
+  border-radius: var(--mantine-radius-lg);
+  border-bottom-left-radius: var(--mantine-radius-sm);
+  font-size: var(--mantine-font-size-sm);
+  height: fit-content;
+  padding: var(--mantine-spacing-xs) var(--mantine-spacing-md);
+  font-weight: 700;
+  color: var(--mantine-color-black);
+  position: relative;
+  top: -20px;
+}

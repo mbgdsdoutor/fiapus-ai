@@ -1,0 +1,28 @@
+import type { CustomIcon } from './index.types';
+
+export function ReportIcon({ size = 16, color = '#ed145b' }: CustomIcon) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 16 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3.33061 2.79047C3.42941 2.3294 3.83688 2 4.30842 2H11.6916C12.1631 2 12.5706 2.3294 12.6694 2.79047L13.9704 8.86188C13.9901 8.9537 14 9.04735 14 9.14125V13C14 13.5523 13.5523 14 13 14H3C2.44772 14 2 13.5523 2 13V9.14125C2 9.04735 2.00992 8.9537 2.0296 8.86188L3.33061 2.79047Z"
+        stroke={color}
+        strokeWidth="1.5"
+      />
+      <path
+        d="M14 9H2"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinejoin="round"
+      />
+      <path d="M5.5 4H10.5" stroke={color} strokeWidth="1.5" />
+      <path d="M4.5 6H11.5" stroke={color} strokeWidth="1.5" />
+      <path d="M7 12H9" stroke={color} strokeWidth="1.5" />
+    </svg>
+  );
+}

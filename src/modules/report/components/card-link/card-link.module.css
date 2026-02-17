@@ -1,0 +1,18 @@
+.card {
+  background-color: var(--mantine-color-secondary-filled);
+  border-color: var(--mantine-color-primary-filled);
+  width: fit-content;
+  border-radius: 40px;
+  padding: var(--mantine-spacing-md) var(--mantine-spacing-lg);
+  color: var(--mantine-color-primary-filled);
+  transition: all 0.2s;
+}
+
+.card:hover {
+  background-color: var(--mantine-color-primary-filled);
+  color: white;
+}
+
+.card:hover svg path {
+  stroke: white;
+}
