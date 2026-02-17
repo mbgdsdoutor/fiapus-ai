@@ -81,15 +81,15 @@ export interface UseReportsQueryProps {
   filters?: UseReportQueryFilters;
 }
 
-/* STRIDE ANALYISIS TYPES ABOVE */
+/* STRIDE ANALYISIS TYPES BELOW */
 
 export type StrideCategory =
-  | 'Spoofing'
-  | 'Tampering'
-  | 'Repudiation'
-  | 'Information Disclosure'
-  | 'Denial of Service'
-  | 'Elevation of Privilege';
+  | 'spoofing'
+  | 'tampering'
+  | 'repudiation'
+  | 'informationDisclosure'
+  | 'denialOfService'
+  | 'elevationOfPrivilege';
 
 export type RiskLevel = 'Low' | 'Medium' | 'High' | 'Critical';
 
@@ -107,6 +107,7 @@ export interface Threat {
 }
 
 export interface ComponentThreatAnalysis {
+  id: string;
   componentName: string;
   componentType: string;
   trustBoundaryCrossed: boolean;
@@ -142,3 +143,35 @@ export interface StrideReport {
     longTerm: string[];
   };
 }
+
+export const STRIDE_LABELS: Record<StrideCategory, string> = {
+  spoofing: 'Spoofing',
+  tampering: 'Tampering',
+  repudiation: 'Repudiation',
+  informationDisclosure: 'Information Disclosure',
+  denialOfService: 'Denial of Service',
+  elevationOfPrivilege: 'Elevation of Privilege',
+};
+
+export const STRIDE_COLORS: Record<StrideCategory, string> = {
+  spoofing: '#e03131',
+  tampering: '#f76707',
+  repudiation: '#fab005',
+  informationDisclosure: '#1098ad',
+  denialOfService: '#7048e8',
+  elevationOfPrivilege: '#e8590c',
+};
+
+export const RISK_COLORS: Record<RiskLevel, string> = {
+  Critical: '#e03131',
+  High: '#f76707',
+  Medium: '#fab005',
+  Low: '#40c057',
+};
+
+export const RISK_MANTINE_COLORS: Record<RiskLevel, string> = {
+  Critical: 'red',
+  High: 'orange',
+  Medium: 'yellow',
+  Low: 'green',
+};

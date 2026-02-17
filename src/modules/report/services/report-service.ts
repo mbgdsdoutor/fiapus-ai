@@ -3,73 +3,131 @@ import { openai } from '@/openai-client';
 
 import type { DiagramType } from '../components/report-input';
 
-export const analyzeDiagram = async (
-  imageFile: File,
-  diagramType: DiagramType,
-) => {
-  const imageBase64 = await fileToBase64(imageFile);
+const STRIDE_SCHEMA_JSON = `
+{
+  "metadata": {
+    "diagramType": "string",
+    "analysisDate": "ISO-8601 date string",
+    "assumptions": ["string"],
+    "limitations": ["string"]
+  },
+  "architectureSummary": {
+    "detectedArchitectureStyle": "string",
+    "mainComponents": ["string"],
+    "trustBoundaries": ["string"],
+    "externalDependencies": ["string"]
+  },
+  "riskOverview": {
+    "overallRisk": "Low | Medium | High | Critical",
+    "riskDistribution": {
+      "Spoofing": "number",
+      "Tampering": "number",
+      "Repudiation": "number",
+      "Information Disclosure": "number",
+      "Denial of Service": "number",
+      "Elevation of Privilege": "number"
+    },
+    "mostCriticalComponents": ["string"]
+  },
+  "components": [
+    {
+      "componentName": "string",
+      "componentType": "string",
+      "trustBoundaryCrossed": "boolean",
+      "threats": [
+        {
+          "id": "string",
+          "stride": "Spoofing | Tampering | Repudiation | Information Disclosure | Denial of Service | Elevation of Privilege",
+          "title": "string",
+          "description": "string",
+          "attackScenario": "string",
+          "impact": "string",
+          "riskLevel": "Low | Medium | High | Critical",
+          "confidence": "Low | Medium | High",
+          "assumptions": ["string"],
+          "recommendations": ["string"]
+        }
+      ]
+    }
+  ],
+  "globalRecommendations": {
+    "shortTerm": ["string"],
+    "mediumTerm": ["string"],
+    "longTerm": ["string"]
+  }
+}
+`;
 
-  const promptByDiagramType: Record<DiagramType, string> = {
-    'Diagrama Conceitual (High-level)': `
+const diagramTypeGuidance: Record<DiagramType, string> = {
+  'Diagrama Conceitual (High-level)': `
 O diagrama é conceitual e de alto nível.
-Foque em:
-- Trust boundaries implícitos
-- Falta de controles de identidade
-- Pontos únicos de falha (SPOF)
-- Riscos arquiteturais gerais
-Evite detalhes de infraestrutura ou configuração específica.
-    `,
+- Priorize trust boundaries implícitos
+- Identifique ausência de controles explícitos
+- Evite detalhes de infraestrutura ou configuração
+`,
 
-    'Diagrama Lógico / Funcional': `
+  'Diagrama Lógico / Funcional': `
 O diagrama é lógico/funcional.
-Foque em:
-- Fluxos entre componentes
-- Comunicação entre serviços
-- Autenticação e autorização
-- Possíveis falhas de segregação de responsabilidades
-    `,
+- Analise fluxos entre componentes
+- Autenticação, autorização e comunicação entre serviços
+- Segregação de responsabilidades
+`,
 
-    'Diagrama Físico / Infraestrutura': `
+  'Diagrama Físico / Infraestrutura': `
 O diagrama representa infraestrutura.
-Foque em:
-- Exposição de rede
-- Isolamento (subnets, zonas, regiões)
+- Exposição de rede e isolamento
 - Serviços públicos vs privados
 - Alta disponibilidade, escalabilidade e resiliência
 - Misconfigurações comuns de cloud
-    `,
+`,
 
-    'Outro tipo de diagrama': `
-O tipo de diagrama não é totalmente claro.
-Faça suposições explícitas e indique incertezas na análise.
-    `,
-  };
+  'Outro tipo de diagrama': `
+O tipo do diagrama não está totalmente claro.
+- Declare suposições explicitamente
+- Indique incertezas na análise
+`,
+};
+
+export async function analyzeDiagram(
+  imageFile: File,
+  diagramType: DiagramType,
+): Promise<string> {
+  const imageBase64 = await fileToBase64(imageFile);
 
   const response = await openai.responses.create({
     model: 'gpt-4.1-mini',
     input: [
       {
-        role: 'system',
-        content:
-          'Você é um especialista em segurança de software e threat modeling usando o modelo STRIDE.',
-      },
-      {
+        type: 'message',
         role: 'user',
         content: [
           {
             type: 'input_text',
             text: `
-O usuário informou que o tipo do diagrama é:
+Você é um especialista em segurança de software e threat modeling usando a metodologia STRIDE.
+
+OBJETIVO:
+Gerar um relatório em pt-br de ameaças STRIDE estruturado em JSON a partir do diagrama fornecido.
+
+TIPO DE DIAGRAMA INFORMADO PELO USUÁRIO:
 "${diagramType}"
 
-${promptByDiagramType[diagramType]}
+DIRETRIZES:
+${diagramTypeGuidance[diagramType]}
 
-Tarefas:
-1. Identifique os principais componentes do sistema
-2. Identifique trust boundaries
-3. Classifique riscos usando STRIDE (Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege)
-4. Liste vulnerabilidades e gargalos arquiteturais
-5. Sugira melhorias práticas e arquiteturais
+REGRAS OBRIGATÓRIAS:
+- Retorne EXCLUSIVAMENTE um JSON válido
+- NÃO inclua texto fora do JSON
+- Siga ESTRITAMENTE o schema fornecido
+- Baseie-se apenas no que é visível ou inferível no diagrama
+- Declare suposições e incertezas explicitamente
+- Não invente componentes inexistentes
+
+METODOLOGIA STRIDE:
+Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege
+
+SCHEMA DE RETORNO (JSON):
+${STRIDE_SCHEMA_JSON}
             `,
           },
           {
@@ -83,4 +141,4 @@ Tarefas:
   });
 
   return response.output_text;
-};
+}

@@ -1,9 +1,12 @@
 import { Button, Card, Flex, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ColorfulAnimatedBorder } from '@/components/animations/colorful-border/colorful-border';
 import { SendIcon } from '@/components/icons';
+
+import { reportRoutesPaths } from '../../report-routes';
 
 import { ReportInputFileList } from './report-input-file-list';
 import { ReportInputTypeMenu } from './report-input-type-menu';
@@ -19,6 +22,7 @@ const diagramTypes = [
 export type DiagramType = (typeof diagramTypes)[number];
 
 export function ReportInput() {
+  const navigate = useNavigate();
   const [selectedDiagramType, setSelectedDiagramType] = useState<
     string | undefined
   >();
@@ -41,13 +45,17 @@ export function ReportInput() {
   };
 
   const handleSendReport = async () => {
-    setIsSending(true);
+    if (uploadedFile) {
+      navigate(reportRoutesPaths.list);
+    } else {
+      setIsSending(true);
 
-    notifications.show({
-      title: 'Erro ao enviar arquivos',
-      message: 'Tente novamente mais tarde',
-      color: 'red.7',
-    });
+      notifications.show({
+        title: 'Erro ao enviar arquivos',
+        message: 'Tente novamente mais tarde',
+        color: 'red.7',
+      });
+    }
   };
 
   return (
