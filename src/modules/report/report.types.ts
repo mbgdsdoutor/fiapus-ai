@@ -80,3 +80,65 @@ export type UseReportQueryFilters = Omit<FindReportsParams, 'page'>;
 export interface UseReportsQueryProps {
   filters?: UseReportQueryFilters;
 }
+
+/* STRIDE ANALYISIS TYPES ABOVE */
+
+export type StrideCategory =
+  | 'Spoofing'
+  | 'Tampering'
+  | 'Repudiation'
+  | 'Information Disclosure'
+  | 'Denial of Service'
+  | 'Elevation of Privilege';
+
+export type RiskLevel = 'Low' | 'Medium' | 'High' | 'Critical';
+
+export interface Threat {
+  id: string;
+  stride: StrideCategory;
+  title: string;
+  description: string;
+  attackScenario: string;
+  impact: string;
+  riskLevel: RiskLevel;
+  confidence: 'Low' | 'Medium' | 'High';
+  assumptions: string[];
+  recommendations: string[];
+}
+
+export interface ComponentThreatAnalysis {
+  componentName: string;
+  componentType: string;
+  trustBoundaryCrossed: boolean;
+  threats: Threat[];
+}
+
+export interface StrideReport {
+  metadata: {
+    diagramType: string;
+    analysisDate: string;
+    assumptions: string[];
+    limitations: string[];
+  };
+
+  architectureSummary: {
+    detectedArchitectureStyle: string;
+    mainComponents: string[];
+    trustBoundaries: string[];
+    externalDependencies: string[];
+  };
+
+  riskOverview: {
+    overallRisk: RiskLevel;
+    riskDistribution: Record<StrideCategory, number>;
+    mostCriticalComponents: string[];
+  };
+
+  components: ComponentThreatAnalysis[];
+
+  globalRecommendations: {
+    shortTerm: string[];
+    mediumTerm: string[];
+    longTerm: string[];
+  };
+}

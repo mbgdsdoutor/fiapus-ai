@@ -24,7 +24,7 @@ const speechBubblePropsByStep: {
   [key in FiapusStatusEnum]: SpeechBubbleProps;
 } = {
   HAPPY: {
-    text: 'Olá, eu sou o Fiapus!',
+    text: 'Olá, eu sou o Fiapus! 🥭',
     subText:
       'Para começar, selecione o tipo de diagrama a ser analisado e faça o upload da imagem.',
     image: FiapusHappy,

@@ -18,8 +18,8 @@ export const reportRoutes: RouteObject[] = [
     path: reportRoutesPaths.list,
     element: <ReportListPage />,
   },
-  {
-    path: reportRoutesPaths.detail(),
-    element: <ReportListPage />,
-  },
+  // {
+  //   path: reportRoutesPaths.detail(),
+  //   element: <ReportListPage />,
+  // },
 ];
