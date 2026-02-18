@@ -26,7 +26,13 @@ export function ComponentCard({
   ).length;
 
   return (
-    <Paper p="lg" radius="md" withBorder>
+    <Paper
+      p="lg"
+      radius="md"
+      withBorder
+      bg="var(--mantine-color-secondary-filled)"
+      style={{ borderColor: 'var(--mantine-color-secondaryLight-filled)' }}
+    >
       <Stack gap="md">
         {/* Component Header */}
         <Group justify="space-between" wrap="wrap">

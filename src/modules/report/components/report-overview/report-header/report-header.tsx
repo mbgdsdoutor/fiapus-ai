@@ -28,16 +28,20 @@ export function ReportHeader({ metadata, overallRisk }: ReportHeaderProps) {
       radius="lg"
       style={{
         background:
-          'linear-gradient(135deg, rgba(0,200,200,0.08) 0%, rgba(0,100,150,0.04) 100%)',
-        borderLeft: '4px solid var(--mantine-color-cyan-6)',
+          'linear-gradient(25deg, var(--mantine-color-secondary-filled) 50%, var(--mantine-color-secondaryLight-filled) 100%)',
+        border: '2px solid var(--mantine-color-primary-filled)',
       }}
     >
       <Group justify="space-between" align="flex-start" wrap="wrap">
         <Stack gap="xs">
           <Group gap="sm">
-            <IconShieldCheck size={32} color="var(--mantine-color-cyan-5)" />
+            <IconShieldCheck
+              size={32}
+              color="var(--mantine-color-primary-filled)"
+            />
             <Title
               order={1}
+              c="primary"
               style={{ fontSize: '1.8rem', letterSpacing: '-0.02em' }}
             >
               STRIDE Threat Analysis Report
@@ -45,14 +49,20 @@ export function ReportHeader({ metadata, overallRisk }: ReportHeaderProps) {
           </Group>
           <Group gap="lg" mt={4}>
             <Group gap={6}>
-              <IconChartDots size={16} color="var(--mantine-color-dimmed)" />
-              <Text size="sm" c="dimmed">
+              <IconChartDots
+                size={16}
+                color="var(--mantine-color-primary-filled)"
+              />
+              <Text size="sm" c="primary">
                 {metadata.diagramType}
               </Text>
             </Group>
             <Group gap={6}>
-              <IconCalendar size={16} color="var(--mantine-color-dimmed)" />
-              <Text size="sm" c="dimmed">
+              <IconCalendar
+                size={16}
+                color="var(--mantine-color-primary-filled)"
+              />
+              <Text size="sm" c="primary">
                 {formattedDate}
               </Text>
             </Group>
@@ -60,7 +70,7 @@ export function ReportHeader({ metadata, overallRisk }: ReportHeaderProps) {
         </Stack>
         <Badge
           size="xl"
-          variant="light"
+          variant="outline"
           color={RISK_MANTINE_COLORS[overallRisk]}
           style={{ fontSize: '0.85rem', padding: '12px 20px' }}
         >

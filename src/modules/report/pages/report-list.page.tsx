@@ -1,6 +1,10 @@
 import { Container, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { useAtomValue } from 'jotai';
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+
+import { globalStore } from '@/data/store/global.atoms';
 
 import {
   ArchitectureSummaryCard,
@@ -10,6 +14,7 @@ import {
   RiskOverviewDashboard,
   ThreatDrawer,
 } from '../components/report-overview';
+import { reportRoutesPaths } from '../report-routes';
 
 import type { StrideReport, Threat } from '../report.types';
 
@@ -213,6 +218,7 @@ const mockReport: StrideReport = {
 };
 
 export default function ReportListPage() {
+  const diagramImage = useAtomValue(globalStore.diagramImageAtom);
   const [selectedThreat, setSelectedThreat] = useState<Threat | null>(null);
   const [drawerOpened, { open: openDrawer, close: closeDrawer }] =
     useDisclosure(false);
@@ -222,6 +228,10 @@ export default function ReportListPage() {
     openDrawer();
   };
 
+  if (!diagramImage) {
+    return <Navigate to={reportRoutesPaths.root} replace />;
+  }
+
   return (
     <Container size="lg" py="xl">
       <Stack gap="lg">
@@ -229,7 +239,10 @@ export default function ReportListPage() {
           metadata={mockReport.metadata}
           overallRisk={mockReport.riskOverview.overallRisk}
         />
-        <ArchitectureSummaryCard summary={mockReport.architectureSummary} />
+        <ArchitectureSummaryCard
+          summary={mockReport.architectureSummary}
+          diagramImage={diagramImage}
+        />
         <RiskOverviewDashboard riskOverview={mockReport.riskOverview} />
         <ComponentsSection
           components={mockReport.components}

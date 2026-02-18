@@ -1,10 +1,13 @@
 import { Button, Card, Flex, Text } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import { useSetAtom } from 'jotai';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { fileToBase64 } from '@/common/utils/file.utils';
 import { ColorfulAnimatedBorder } from '@/components/animations/colorful-border/colorful-border';
 import { SendIcon } from '@/components/icons';
+import { globalStore } from '@/data/store/global.atoms';
 
 import { reportRoutesPaths } from '../../report-routes';
 
@@ -23,6 +26,7 @@ export type DiagramType = (typeof diagramTypes)[number];
 
 export function ReportInput() {
   const navigate = useNavigate();
+  const setDiagramImage = useSetAtom(globalStore.diagramImageAtom);
   const [selectedDiagramType, setSelectedDiagramType] = useState<
     string | undefined
   >();
@@ -46,10 +50,23 @@ export function ReportInput() {
 
   const handleSendReport = async () => {
     if (uploadedFile) {
-      navigate(reportRoutesPaths.list);
-    } else {
       setIsSending(true);
-
+      fileToBase64(uploadedFile)
+        .then((file) => {
+          setDiagramImage(file);
+          navigate(reportRoutesPaths.list);
+        })
+        .catch(() => {
+          notifications.show({
+            title: 'Erro ao enviar arquivos',
+            message: 'Tente novamente mais tarde',
+            color: 'red.7',
+          });
+        })
+        .finally(() => {
+          setIsSending(false);
+        });
+    } else {
       notifications.show({
         title: 'Erro ao enviar arquivos',
         message: 'Tente novamente mais tarde',

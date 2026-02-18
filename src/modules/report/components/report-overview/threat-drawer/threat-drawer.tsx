@@ -77,6 +77,14 @@ export function ThreatDrawer({ threat, opened, onClose }: ThreatDrawerProps) {
       size="lg"
       padding="lg"
       overlayProps={{ backgroundOpacity: 0.4, blur: 4 }}
+      styles={{
+        header: {
+          backgroundColor: 'var(--mantine-color-secondary-filled)',
+        },
+        content: {
+          backgroundColor: 'var(--mantine-color-secondary-filled)',
+        },
+      }}
     >
       <Stack gap="lg">
         <div>

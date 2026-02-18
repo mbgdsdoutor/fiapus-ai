@@ -1,6 +1,9 @@
 import {
   Badge,
+  Box,
+  Flex,
   Group,
+  Image,
   List,
   Paper,
   SimpleGrid,
@@ -20,10 +23,12 @@ import type { StrideReport } from '@/modules/report/report.types';
 
 interface ArchitectureSummaryCardProps {
   summary: StrideReport['architectureSummary'];
+  diagramImage: string;
 }
 
 export function ArchitectureSummaryCard({
   summary,
+  diagramImage,
 }: ArchitectureSummaryCardProps) {
   const sections = [
     {
@@ -47,45 +52,74 @@ export function ArchitectureSummaryCard({
   ];
 
   return (
-    <Paper p="lg" radius="md" withBorder>
-      <Group gap="sm" mb="md">
-        <ThemeIcon variant="light" color="cyan" size="lg" radius="md">
-          <IconTopologyRing size={20} />
-        </ThemeIcon>
-        <div>
-          <Title order={3} size="h4">
-            Architecture Summary
-          </Title>
-          <Badge variant="dot" color="cyan" mt={4}>
-            {summary.detectedArchitectureStyle}
-          </Badge>
-        </div>
-      </Group>
+    <Paper
+      p="lg"
+      radius="md"
+      withBorder
+      bg="var(--mantine-color-secondary-filled)"
+      style={{ borderColor: 'var(--mantine-color-secondaryLight-filled)' }}
+    >
+      <Flex gap="md">
+        <Box w="50%">
+          <Image
+            src={diagramImage}
+            alt="imagem do diagrama analisado"
+            w="100%"
+            height="auto"
+          />
+        </Box>
+        <Box>
+          <Group gap="sm" mb="md">
+            <ThemeIcon variant="light" color="cyan" size="lg" radius="md">
+              <IconTopologyRing size={20} />
+            </ThemeIcon>
+            <div>
+              <Title
+                order={3}
+                size="h4"
+                c="var(--mantine-color-secondaryLight-filled)"
+              >
+                Architecture Summary
+              </Title>
+              <Badge variant="outline" color="secondaryLight" mt={4}>
+                {summary.detectedArchitectureStyle}
+              </Badge>
+            </div>
+          </Group>
 
-      <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
-        {sections.map((section) => (
-          <Stack key={section.title} gap="xs">
-            <Group gap={6}>
-              <section.icon
-                size={16}
-                color={`var(--mantine-color-${section.color}-5)`}
-              />
-              <Text fw={600} size="sm">
-                {section.title}
-              </Text>
-            </Group>
-            <List size="sm" spacing={4} center>
-              {section.items.map((item) => (
-                <List.Item key={item}>
-                  <Text size="sm" c="dimmed">
-                    {item}
+          <SimpleGrid cols={{ base: 1, sm: 3 }} spacing="lg">
+            {sections.map((section) => (
+              <Stack key={section.title} gap="xs">
+                <Group gap={6}>
+                  <section.icon
+                    size={16}
+                    color={`var(--mantine-color-${section.color}-5)`}
+                  />
+                  <Text
+                    fw={600}
+                    size="sm"
+                    c="var(--mantine-color-secondaryLight-filled)"
+                  >
+                    {section.title}
                   </Text>
-                </List.Item>
-              ))}
-            </List>
-          </Stack>
-        ))}
-      </SimpleGrid>
+                </Group>
+                <List size="sm" spacing={4} center>
+                  {section.items.map((item) => (
+                    <List.Item key={item}>
+                      <Text
+                        size="sm"
+                        c="var(--mantine-color-secondaryLight-filled)"
+                      >
+                        {item}
+                      </Text>
+                    </List.Item>
+                  ))}
+                </List>
+              </Stack>
+            ))}
+          </SimpleGrid>
+        </Box>
+      </Flex>
     </Paper>
   );
 }

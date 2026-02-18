@@ -43,7 +43,13 @@ export function GlobalRecommendations({
   ];
 
   return (
-    <Paper p="lg" radius="md" withBorder>
+    <Paper
+      p="lg"
+      radius="md"
+      withBorder
+      bg="var(--mantine-color-secondary-filled)"
+      style={{ borderColor: 'var(--mantine-color-secondaryLight-filled)' }}
+    >
       <Group gap="sm" mb="lg">
         <ThemeIcon variant="light" color="cyan" size="lg" radius="md">
           <IconRocket size={20} />

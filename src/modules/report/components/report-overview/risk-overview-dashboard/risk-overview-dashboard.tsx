@@ -55,7 +55,13 @@ export function RiskOverviewDashboard({
   }));
 
   return (
-    <Paper p="lg" radius="md" withBorder>
+    <Paper
+      p="lg"
+      radius="md"
+      withBorder
+      bg="var(--mantine-color-secondary-filled)"
+      style={{ borderColor: 'var(--mantine-color-secondaryLight-filled)' }}
+    >
       <Group gap="sm" mb="lg">
         <ThemeIcon
           variant="light"
@@ -66,10 +72,14 @@ export function RiskOverviewDashboard({
           <IconAlertTriangle size={20} />
         </ThemeIcon>
         <div>
-          <Title order={3} size="h4">
+          <Title
+            order={3}
+            size="h4"
+            c={RISK_MANTINE_COLORS[riskOverview.overallRisk]}
+          >
             Risk Overview
           </Title>
-          <Text size="sm" c="dimmed">
+          <Text size="sm" c={RISK_MANTINE_COLORS[riskOverview.overallRisk]}>
             {total} threats identified across all components
           </Text>
         </div>
