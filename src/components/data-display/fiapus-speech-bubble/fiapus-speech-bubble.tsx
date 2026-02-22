@@ -23,18 +23,35 @@ type SpeechBubbleProps = {
 const speechBubblePropsByStep: {
   [key in FiapusStatusEnum]: SpeechBubbleProps;
 } = {
-  HAPPY: {
+  HAPPY_INITIAL: {
     text: 'Olá, eu sou o Fiapus! 🥭',
     subText:
       'Para começar, selecione o tipo de diagrama a ser analisado e faça o upload da imagem.',
     image: FiapusHappy,
   },
+  HAPPY_PRE_UPLOAD: {
+    text: 'Confira se está tudo correto e clique em enviar.',
+    image: FiapusHappy,
+  },
+  HAPPY_RESULT: {
+    text: 'Aqui está o seu resultado!',
+    subText: 'Parabéns! Seu diagrama possui pouco ou nenhum risco detectado.',
+    image: FiapusHappy,
+  },
   NEUTRAL: {
-    text: 'Peça um novo laudo, escolhendo um modelo.',
+    text: 'Aqui está o seu resultado!',
+    subText: 'Seu diagrama possui alguns riscos que precisam de sua atenção.',
     image: FiapusNeutral,
   },
-  SAD: {
-    text: 'Peça um novo laudo, escolhendo um modelo.',
+  SAD_UPLOAD: {
+    text: 'Houve um erro ao enviar o diagrama para análise.',
+    subText: 'Tente novamente mais tarde',
+    image: FiapusSad,
+  },
+  SAD_RESULT: {
+    text: 'Aqui está o seu resultado!',
+    subText:
+      'Seu diagrama possui riscos críticos que precisam de atenção imediata.',
     image: FiapusSad,
   },
 };

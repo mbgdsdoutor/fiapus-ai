@@ -10,6 +10,7 @@ import { SendIcon } from '@/components/icons';
 import { globalStore } from '@/data/store/global.atoms';
 
 import { reportRoutesPaths } from '../../report-routes';
+import { FiapusStatusEnum } from '../../report.types';
 
 import { ReportInputFileList } from './report-input-file-list';
 import { ReportInputTypeMenu } from './report-input-type-menu';
@@ -24,7 +25,11 @@ const diagramTypes = [
 
 export type DiagramType = (typeof diagramTypes)[number];
 
-export function ReportInput() {
+type ReportInputProps = {
+  handleUpdateFiapusStatus: (status: FiapusStatusEnum) => void;
+};
+
+export function ReportInput({ handleUpdateFiapusStatus }: ReportInputProps) {
   const navigate = useNavigate();
   const setDiagramImage = useSetAtom(globalStore.diagramImageAtom);
   const [selectedDiagramType, setSelectedDiagramType] = useState<
@@ -41,11 +46,13 @@ export function ReportInput() {
 
   const handleUpload = (file: File) => {
     setUploadedFile(file);
+    handleUpdateFiapusStatus(FiapusStatusEnum.HAPPY_PRE_UPLOAD);
   };
 
   const handleRemoveFile = () => {
     setUploadedFile(undefined);
     setSelectedDiagramType(undefined);
+    handleUpdateFiapusStatus(FiapusStatusEnum.HAPPY_INITIAL);
   };
 
   const handleSendReport = async () => {

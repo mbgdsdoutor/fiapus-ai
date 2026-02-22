@@ -1,7 +1,10 @@
 export const FiapusStatusEnum = {
-  HAPPY: 'HAPPY',
+  HAPPY_INITIAL: 'HAPPY_INITIAL',
+  HAPPY_RESULT: 'HAPPY_RESULT',
+  HAPPY_PRE_UPLOAD: 'HAPPY_PRE_UPLOAD',
   NEUTRAL: 'NEUTRAL',
-  SAD: 'SAD',
+  SAD_UPLOAD: 'SAD_UPLOAD',
+  SAD_RESULT: 'SAD_RESULT',
 } as const;
 
 export type FiapusStatusEnum =

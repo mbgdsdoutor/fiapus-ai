@@ -4,6 +4,7 @@ import { useAtomValue } from 'jotai';
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 
+import { FiapusSpeechBubble } from '@/components/data-display/fiapus-speech-bubble';
 import { globalStore } from '@/data/store/global.atoms';
 
 import {
@@ -15,8 +16,11 @@ import {
   ThreatDrawer,
 } from '../components/report-overview';
 import { reportRoutesPaths } from '../report-routes';
-
-import type { StrideReport, Threat } from '../report.types';
+import {
+  FiapusStatusEnum,
+  type StrideReport,
+  type Threat,
+} from '../report.types';
 
 const mockReport: StrideReport = {
   metadata: {
@@ -228,6 +232,20 @@ export default function ReportListPage() {
     openDrawer();
   };
 
+  const getResultStatus = (): FiapusStatusEnum => {
+    const isHighOrCriticalRisk =
+      mockReport.riskOverview.overallRisk === 'High' ||
+      mockReport.riskOverview.overallRisk === 'Critical';
+    const isMediumCriticalRisk =
+      mockReport.riskOverview.overallRisk === 'Medium';
+
+    if (isHighOrCriticalRisk) return FiapusStatusEnum.SAD_RESULT;
+
+    if (isMediumCriticalRisk) return FiapusStatusEnum.NEUTRAL;
+
+    return FiapusStatusEnum.HAPPY_RESULT;
+  };
+
   if (!diagramImage) {
     return <Navigate to={reportRoutesPaths.root} replace />;
   }
@@ -235,6 +253,7 @@ export default function ReportListPage() {
   return (
     <Container size="lg" py="xl">
       <Stack gap="lg">
+        <FiapusSpeechBubble status={getResultStatus()} />
         <ReportHeader
           metadata={mockReport.metadata}
           overallRisk={mockReport.riskOverview.overallRisk}
