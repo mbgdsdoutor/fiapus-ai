@@ -22,22 +22,22 @@ export function GlobalRecommendations({
     {
       icon: IconRocket,
       color: 'red',
-      title: 'Short Term',
-      subtitle: 'Immediate actions',
+      title: 'Curto Prazo',
+      subtitle: 'Ações Imediatas',
       items: recommendations.shortTerm,
     },
     {
       icon: IconClock,
       color: 'yellow',
-      title: 'Medium Term',
-      subtitle: '1-3 months',
+      title: 'Médio Prazo',
+      subtitle: '1-3 meses',
       items: recommendations.mediumTerm,
     },
     {
       icon: IconTelescope,
       color: 'cyan',
-      title: 'Long Term',
-      subtitle: '3-12 months',
+      title: 'Longo Prazo',
+      subtitle: '3-12 meses',
       items: recommendations.longTerm,
     },
   ];
@@ -55,7 +55,7 @@ export function GlobalRecommendations({
           <IconRocket size={20} />
         </ThemeIcon>
         <Title order={3} size="h4">
-          Global Recommendations
+          Recomendações Gerais
         </Title>
       </Group>
 

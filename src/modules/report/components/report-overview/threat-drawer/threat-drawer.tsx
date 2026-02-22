@@ -67,7 +67,7 @@ export function ThreatDrawer({ threat, opened, onClose }: ThreatDrawerProps) {
                 {STRIDE_LABELS[threat.stride]}
               </Badge>
               <Badge size="sm" variant="dot" color="gray">
-                Confidence: {threat.confidence}
+                Credibilidade: {threat.confidence}
               </Badge>
             </Group>
           </div>
@@ -89,7 +89,7 @@ export function ThreatDrawer({ threat, opened, onClose }: ThreatDrawerProps) {
       <Stack gap="lg">
         <div>
           <Text fw={600} size="sm" mb={6}>
-            Description
+            Descrição
           </Text>
           <Text size="sm" c="dimmed" style={{ lineHeight: 1.6 }}>
             {threat.description}
@@ -107,7 +107,7 @@ export function ThreatDrawer({ threat, opened, onClose }: ThreatDrawerProps) {
           <Group gap={6} mb={8}>
             <IconBomb size={16} color="#e03131" />
             <Text fw={600} size="sm">
-              Attack Scenario
+              Cenário de Ataque
             </Text>
           </Group>
           <Text size="sm" c="dimmed" style={{ lineHeight: 1.6 }}>
@@ -126,7 +126,7 @@ export function ThreatDrawer({ threat, opened, onClose }: ThreatDrawerProps) {
           <Group gap={6} mb={8}>
             <IconTarget size={16} color="#f76707" />
             <Text fw={600} size="sm">
-              Impact
+              Impacto
             </Text>
           </Group>
           <Text size="sm" c="dimmed" style={{ lineHeight: 1.6 }}>
@@ -144,7 +144,7 @@ export function ThreatDrawer({ threat, opened, onClose }: ThreatDrawerProps) {
                 color="var(--mantine-color-yellow-5)"
               />
               <Text fw={600} size="sm">
-                Assumptions
+                Suposições
               </Text>
             </Group>
             <List size="sm" spacing={4}>
@@ -163,7 +163,7 @@ export function ThreatDrawer({ threat, opened, onClose }: ThreatDrawerProps) {
           <Group gap={6} mb={8}>
             <IconBulb size={16} color="var(--mantine-color-cyan-5)" />
             <Text fw={600} size="sm">
-              Recommendations
+              Recomendações
             </Text>
           </Group>
           <List size="sm" spacing={6} type="ordered">

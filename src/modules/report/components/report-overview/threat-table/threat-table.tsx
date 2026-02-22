@@ -8,6 +8,8 @@ import {
   type Threat,
 } from '@/modules/report/report.types';
 
+import classes from './threat-table.module.css';
+
 interface ThreatTableProps {
   threats: Threat[];
   onThreatClick: (threat: Threat) => void;
@@ -23,10 +25,10 @@ export function ThreatTable({ threats, onThreatClick }: ThreatTableProps) {
     >
       <Table.Thead>
         <Table.Tr>
-          <Table.Th style={{ width: '38%' }}>Threat</Table.Th>
-          <Table.Th style={{ width: '22%' }}>Category</Table.Th>
-          <Table.Th style={{ width: '15%' }}>Risk</Table.Th>
-          <Table.Th style={{ width: '17%' }}>Confidence</Table.Th>
+          <Table.Th style={{ width: '38%' }}>Ameaça</Table.Th>
+          <Table.Th style={{ width: '22%' }}>Categoria</Table.Th>
+          <Table.Th style={{ width: '15%' }}>Risco</Table.Th>
+          <Table.Th style={{ width: '17%' }}>Credibilidade</Table.Th>
           <Table.Th style={{ width: '8%' }}></Table.Th>
         </Table.Tr>
       </Table.Thead>
@@ -35,6 +37,7 @@ export function ThreatTable({ threats, onThreatClick }: ThreatTableProps) {
           <Table.Tr
             key={threat.id}
             style={{ cursor: 'pointer' }}
+            className={classes.tableRow}
             onClick={() => onThreatClick(threat)}
           >
             <Table.Td>

@@ -14,7 +14,7 @@ interface ReportHeaderProps {
 
 export function ReportHeader({ metadata, overallRisk }: ReportHeaderProps) {
   const date = new Date(metadata.analysisDate);
-  const formattedDate = date.toLocaleDateString('en-US', {
+  const formattedDate = date.toLocaleDateString('pt-BR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -44,7 +44,7 @@ export function ReportHeader({ metadata, overallRisk }: ReportHeaderProps) {
               c="primary"
               style={{ fontSize: '1.8rem', letterSpacing: '-0.02em' }}
             >
-              STRIDE Threat Analysis Report
+              Relatório de Modelagem de Ameaças STRIDE
             </Title>
           </Group>
           <Group gap="lg" mt={4}>
@@ -74,7 +74,7 @@ export function ReportHeader({ metadata, overallRisk }: ReportHeaderProps) {
           color={RISK_MANTINE_COLORS[overallRisk]}
           style={{ fontSize: '0.85rem', padding: '12px 20px' }}
         >
-          Overall Risk: {overallRisk}
+          Risco Geral: {overallRisk}
         </Badge>
       </Group>
     </Paper>

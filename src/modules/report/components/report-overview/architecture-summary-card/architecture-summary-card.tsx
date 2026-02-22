@@ -34,7 +34,7 @@ export function ArchitectureSummaryCard({
     {
       icon: IconComponents,
       color: 'cyan',
-      title: 'Main Components',
+      title: 'Componentes Principais',
       items: summary.mainComponents,
     },
     {
@@ -46,7 +46,7 @@ export function ArchitectureSummaryCard({
     {
       icon: IconCloud,
       color: 'violet',
-      title: 'External Dependencies',
+      title: 'Dependências Externas',
       items: summary.externalDependencies,
     },
   ];
@@ -79,7 +79,7 @@ export function ArchitectureSummaryCard({
                 size="h4"
                 c="var(--mantine-color-secondaryLight-filled)"
               >
-                Architecture Summary
+                Resumo da Arquitetura
               </Title>
               <Badge variant="outline" color="secondaryLight" mt={4}>
                 {summary.detectedArchitectureStyle}

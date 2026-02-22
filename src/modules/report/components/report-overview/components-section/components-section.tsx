@@ -27,10 +27,10 @@ export function ComponentsSection({
         </ThemeIcon>
         <div>
           <Title order={3} size="h4">
-            Component Analysis
+            Análise de Componentes
           </Title>
           <Text size="sm" c="dimmed">
-            {components.length} components · {totalThreats} threats
+            {components.length} componentes · {totalThreats} ameaças
           </Text>
         </div>
       </Group>

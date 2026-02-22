@@ -28,7 +28,7 @@ export function StrideThreatSummary({ threats }: StrideThreatSummaryProps) {
         tt="uppercase"
         style={{ letterSpacing: '0.05em' }}
       >
-        STRIDE Distribution
+        Distribuição STRIDE
       </Text>
       <Progress.Root size="sm" radius="xl">
         {entries.map(([cat, count]) => (

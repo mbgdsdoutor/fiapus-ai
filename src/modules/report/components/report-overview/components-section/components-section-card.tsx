@@ -34,7 +34,6 @@ export function ComponentCard({
       style={{ borderColor: 'var(--mantine-color-secondaryLight-filled)' }}
     >
       <Stack gap="md">
-        {/* Component Header */}
         <Group justify="space-between" wrap="wrap">
           <Group gap="sm">
             <ThemeIcon
@@ -66,7 +65,7 @@ export function ComponentCard({
               </Badge>
             )}
             <Badge size="sm" variant="filled" color="gray">
-              {component.threats.length} threats
+              {component.threats.length} ameaças
             </Badge>
           </Group>
         </Group>
