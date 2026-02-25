@@ -1,7 +1,7 @@
-import { fileToBase64 } from '@/common/utils/file.utils';
 import { openai } from '@/openai-client';
 
 import type { DiagramType } from '../components/report-input';
+import type { StrideReport } from '../report.types';
 
 const STRIDE_SCHEMA_JSON = `
 {
@@ -20,12 +20,12 @@ const STRIDE_SCHEMA_JSON = `
   "riskOverview": {
     "overallRisk": "Low | Medium | High | Critical",
     "riskDistribution": {
-      "Spoofing": "number",
-      "Tampering": "number",
-      "Repudiation": "number",
-      "Information Disclosure": "number",
-      "Denial of Service": "number",
-      "Elevation of Privilege": "number"
+      "spoofing": "number",
+      "tampering": "number",
+      "repudiation": "number",
+      "informationDisclosure": "number",
+      "denialOfService": "number",
+      "elevationOfPrivilege": "number"
     },
     "mostCriticalComponents": ["string"]
   },
@@ -37,7 +37,7 @@ const STRIDE_SCHEMA_JSON = `
       "threats": [
         {
           "id": "string",
-          "stride": "Spoofing | Tampering | Repudiation | Information Disclosure | Denial of Service | Elevation of Privilege",
+          "stride": "spoofing | tampering | repudiation | informationDisclosure | denialOfService | elevationOfPrivilege",
           "title": "string",
           "description": "string",
           "attackScenario": "string",
@@ -88,11 +88,22 @@ O tipo do diagrama não está totalmente claro.
 `,
 };
 
+function extractJsonFromMarkdown(text: string): StrideReport {
+  const match = text.match(/```json\s*([\s\S]*?)\s*```/);
+
+  if (!match) {
+    return JSON.parse(text);
+    // throw new Error('JSON not found in model output');
+  }
+
+  return JSON.parse(match[1]);
+}
+
 export async function analyzeDiagram(
-  imageFile: File,
+  imageBase64: string,
   diagramType: DiagramType,
-): Promise<string> {
-  const imageBase64 = await fileToBase64(imageFile);
+): Promise<StrideReport> {
+  // const imageBase64 = await fileToBase64(imageFile);
 
   const response = await openai.responses.create({
     model: 'gpt-4.1-mini',
@@ -122,6 +133,7 @@ REGRAS OBRIGATÓRIAS:
 - Baseie-se apenas no que é visível ou inferível no diagrama
 - Declare suposições e incertezas explicitamente
 - Não invente componentes inexistentes
+- A soma de threats no riskDistribution deve ser equivalente ao real número de threats nos components
 
 METODOLOGIA STRIDE:
 Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege
@@ -140,5 +152,9 @@ ${STRIDE_SCHEMA_JSON}
     ],
   });
 
-  return response.output_text;
+  console.log('my response', response.output_text);
+
+  // return JSON.parse(response.output_text);
+
+  return extractJsonFromMarkdown(response.output_text);
 }

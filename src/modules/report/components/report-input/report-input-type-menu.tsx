@@ -50,7 +50,6 @@ export function ReportInputTypeMenu({
             accept={allowedTypes.join(',')}
             onChange={(file) => {
               if (!file) return;
-              console.log('entrei aqui');
               handleSelectDiagramType(diagramType);
               handleUpload(file);
             }}

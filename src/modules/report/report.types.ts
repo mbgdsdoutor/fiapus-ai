@@ -178,3 +178,22 @@ export const RISK_MANTINE_COLORS: Record<RiskLevel, string> = {
   Medium: 'yellow',
   Low: 'green',
 };
+
+export interface OpenAIResponse {
+  id: string;
+  object: 'response';
+  status: 'completed';
+  output: OutputItem[];
+}
+
+interface OutputItem {
+  id: string;
+  type: 'message';
+  role: 'assistant';
+  content: ContentBlock[];
+}
+
+interface ContentBlock {
+  type: 'output_text';
+  text: string;
+}
