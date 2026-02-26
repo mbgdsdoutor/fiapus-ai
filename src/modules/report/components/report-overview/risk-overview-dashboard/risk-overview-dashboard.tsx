@@ -93,6 +93,7 @@ export function RiskOverviewDashboard({
             tickLine="none"
             gridAxis="none"
             yAxisProps={{ width: 180 }}
+            xAxisProps={{ allowDecimals: false }}
             barProps={{ radius: [0, 4, 4, 0], barSize: 16 }}
           />
         </Grid.Col>

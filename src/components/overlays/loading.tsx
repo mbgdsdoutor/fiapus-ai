@@ -14,6 +14,11 @@ export function Loading() {
       visible={isLoading}
       zIndex={1000}
       overlayProps={{ radius: 'sm', blur: 2 }}
+      styles={{
+        root: {
+          position: 'fixed',
+        },
+      }}
       loaderProps={{
         children: (
           <div className={classes.loadingContainer}>

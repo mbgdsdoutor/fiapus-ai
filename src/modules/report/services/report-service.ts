@@ -1,7 +1,7 @@
 import { openai } from '@/openai-client';
 
 import type { DiagramType } from '../components/report-input';
-import type { StrideReport } from '../report.types';
+import type { StrideCategory, StrideReport } from '../report.types';
 
 const STRIDE_SCHEMA_JSON = `
 {
@@ -93,18 +93,40 @@ function extractJsonFromMarkdown(text: string): StrideReport {
 
   if (!match) {
     return JSON.parse(text);
-    // throw new Error('JSON not found in model output');
   }
 
   return JSON.parse(match[1]);
+}
+
+function formatDiagramReport(report: StrideReport): StrideReport {
+  const riskDistribution: Record<StrideCategory, number> = {
+    spoofing: 0,
+    tampering: 0,
+    repudiation: 0,
+    informationDisclosure: 0,
+    denialOfService: 0,
+    elevationOfPrivilege: 0,
+  };
+
+  for (const component of report.components) {
+    for (const threat of component.threats) {
+      riskDistribution[threat.stride]++;
+    }
+  }
+
+  return {
+    ...report,
+    riskOverview: {
+      ...report.riskOverview,
+      riskDistribution,
+    },
+  };
 }
 
 export async function analyzeDiagram(
   imageBase64: string,
   diagramType: DiagramType,
 ): Promise<StrideReport> {
-  // const imageBase64 = await fileToBase64(imageFile);
-
   const response = await openai.responses.create({
     model: 'gpt-4.1-mini',
     input: [
@@ -133,7 +155,6 @@ REGRAS OBRIGATÓRIAS:
 - Baseie-se apenas no que é visível ou inferível no diagrama
 - Declare suposições e incertezas explicitamente
 - Não invente componentes inexistentes
-- A soma de threats no riskDistribution deve ser equivalente ao real número de threats nos components
 
 METODOLOGIA STRIDE:
 Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, Elevation of Privilege
@@ -154,7 +175,5 @@ ${STRIDE_SCHEMA_JSON}
 
   console.log('my response', response.output_text);
 
-  // return JSON.parse(response.output_text);
-
-  return extractJsonFromMarkdown(response.output_text);
+  return formatDiagramReport(extractJsonFromMarkdown(response.output_text));
 }
